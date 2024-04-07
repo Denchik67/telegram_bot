@@ -4,24 +4,28 @@ from datetime import *
 
 def m_response(dic) -> str:
     # удалить позже
-    dic["день_недели"] = 0 # для отладки понедельник
+    dic["день_недели"] = 0  # для отладки понедельник
 
     # читаем все расписание
     shed = read_schedule_file()
     # оставляем только расписание указанного класса
     shed = shed[shed.find(dic["класс"]) + 1:]
     shed = shed[shed.find("\n") + 1:]
+    shed = shed[:shed.find("\n\n")]
+
     answer = "---"
     if dic["следующий"] == 1:
+        dic["следующий"] = 0
         answer = next_lesson(dic, shed)  # следующий урок (следующий)
     elif dic["вся_неделя"] == 1:
-        answer = "-" #all_week(dic, shed) # вся неделя (неделя)
+        dic["вся_неделя"] = 0
+        answer = all_week(dic, shed)  # вся неделя (неделя)
     else:
         answer = shed_for_day(dic, shed)
 
     if dic["осталось"] == 1:
-        answer = answer + " " + remaind(dic, shed)  # осталось до конца урока (.)
         dic["осталось"] = 0
+        answer = answer + " " + remaind(dic, shed)  # осталось до конца урока (.)
 
     return answer
 
@@ -35,15 +39,27 @@ def next_lesson(dic, shed) -> str:
     return text
 
 
+def all_week(dic, shed) -> str:
+    shed = shed.replace("w0", "\nПОНЕДЕЛЬНИК")
+    shed = shed.replace("w1", "\nВТОРНИК")
+    shed = shed.replace("w2", "\nСРЕДА")
+    shed = shed.replace("w3", "\nЧЕТВЕРГ")
+    shed = shed.replace("w4", "\nПЯТНИЦА")
+    shed = shed.replace("w5", "\nСУББОТА")
+    shed = shed.replace("w6", "\nВОСКРЕСЕНЬЕ")
+    shed = shed[:-1]
+    return shed
+
+
 def remaind(dic, shed) -> str:
     now = datetime.today()
     minutes = int(now.strftime("%H")) * 60 + int(now.strftime("%M"))
 
-# 100
+    # 100
 
     if minutes < 8 * 60 + 20:
         time_left = "Уроки еще не начались"
-    elif minutes < 8 * 60 + 55:     # 08:55 окончание 0 урока
+    elif minutes < 8 * 60 + 55:  # 08:55 окончание 0 урока
         time_left = "Осталось " + str(8 * 60 + 55 - minutes) + " минут"
     elif minutes <= 9 * 60 + 00:  # 09:45 окончание 1 урока
         time_left = "Осталось " + str(9 * 60 + 00 - minutes) + " минут"
