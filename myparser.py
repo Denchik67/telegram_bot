@@ -1,18 +1,21 @@
 from current_lesson import *
 
 # Значения по умолчанию, dic (dictionary) - словарь
-dic = {
-    "день_недели": current_day(),  # Нужно вводить текущий день недели
-    "урок": cur_lesson(),  # Текущий урок
-    "вся_неделя": 0,  # Вывести уроки на всю неделю
-    "класс": "",
-    "ошибка": 1,
-    "следующий": 0,
-    "осталось": 0
-}
+
 
 
 def parser(str_to_parse) -> {}:
+    #dic.clear()
+    dic = {
+        "день_недели": current_day(),  # Нужно вводить текущий день недели
+        "урок": cur_lesson(),  # Текущий урок
+        "вся_неделя": 0,  # Вывести уроки на всю неделю
+        "класс": "",
+        "ошибка": 1,
+        "следующий": 0,
+        "осталось": 0
+    }
+
     parser_week_days(str_to_parse, dic)
     parser_class(str_to_parse, dic)
     parser_whole_week(str_to_parse, dic)
@@ -69,22 +72,22 @@ def parser_class(str_to_parse, dic):
     elif s.find("6А") >= 0 or s.find("6A") >= 0:
         dic["класс"] = "6А"
         dic["ошибка"] = 0
-    elif s.find == "6Б":
+    elif s.find("6Б") >= 0:
         dic["класс"] = "6Б"
         dic["ошибка"] = 0
     elif s.find("6В") >= 0 or s.find("6B") >= 0:
         dic["класс"] = "6B"
         dic["ошибка"] = 0
-    elif s.find("7А") >= 0 or s.find("7А") >= 0:
+    elif s.find("7A") >= 0 or s.find("7А") >= 0:
         dic["класс"] = "7А"
         dic["ошибка"] = 0
-    elif s.find == "7Б":
+    elif s.find("7Б") >= 0:
         dic["класс"] = "7Б"
         dic["ошибка"] = 0
     elif s.find("8А") >= 0 or s.find("8A") >= 0:
         dic["класс"] = "8А"
         dic["ошибка"] = 0
-    elif s.find == "8Б":
+    elif s.find("8Б") >= 0:
         dic["класс"] = "8Б"
         dic["ошибка"] = 0
     elif s.find("8В") >= 0 or s.find("8B") >= 0:
@@ -93,14 +96,14 @@ def parser_class(str_to_parse, dic):
     elif s.find("9А") >= 0 or s.find("9A") >= 0:
         dic["класс"] = "9А"
         dic["ошибка"] = 0
-    elif s.find == "9Б":
+    elif s.find("9Б") >= 0:
         dic["класс"] = "9Б"
         dic["ошибка"] = 0
-    elif s.find("10А") >= 0 or s.find("10A") >= 0:
-        dic["класс"] = "10А"
+    elif s.find("10ХБ") >= 0 or s.find("10ФМ") >= 0:
+        dic["класс"] = "10х\\б"
         dic["ошибка"] = 0
-    elif s.find("11А") >= 0 or s.find("11A") >= 0:
-        dic["класс"] = "11А"
+    elif s.find("11ХБ") >= 0 or s.find("11ФМ") >= 0:
+        dic["класс"] = "11х\\б"
         dic["ошибка"] = 0
 
 

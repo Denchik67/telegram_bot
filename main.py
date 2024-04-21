@@ -15,16 +15,16 @@ def main():
     @bot.message_handler(content_types=['text'])
     def lalala(message):
         # парсинг того что нам написали в бот (команды)
+        answer = ""
         dic = parser(message.text)
         if dic["ошибка"] == 1:
             res = " 😔 ошибка\n" + help()
             bot.send_message(message.chat.id, res)
-
-        # подготовка ответа на запрос
-        answer = m_response(dic)
-
-        # отправка ответа
-        bot.send_message(message.chat.id, answer)
+        else:
+            # подготовка ответа на запрос
+            answer = m_response(dic)
+            # отправка ответа
+            bot.send_message(message.chat.id, answer)
 
         # запись лога в консоль
         print(current_time() + ": log:> " + message.text + "\n" +
